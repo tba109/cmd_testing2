@@ -20,8 +20,6 @@ module fcr
    // TAP interface
    output [`N_TAP_CTL_SIZE-1:0] tap_ctl 
    );
-
-`include "cmd_fncs.vh"
       
    ////////////////////////////////////////////////////////////////////////////////////////
    // finite state machine (fsm) states
@@ -53,10 +51,10 @@ module fcr
    // Combinational outputs
    assign cmd_rdreq = (fsm == S_RD_CMD);
    assign rsp_wrreq = (fsm == S_WR_RSP);
-   always @(cmd_target(cmd_data),tap_rsp_data) // demux the response
-     case(cmd_target(cmd_data)) 
-       C_TARGET_TAP : rsp_data <= tap_rsp_data;
-       default      : rsp_data <= 32'd0;
+   always @(`CMD_TARGET(cmd_data),tap_rsp_data) // DEMUX the response
+     case(`CMD_TARGET(cmd_data)) 
+       `C_TARGET_TAP : rsp_data <= tap_rsp_data;
+       default       : rsp_data <= 32'd0;
      endcase
    
    // sequental logic
