@@ -20,3 +20,28 @@ so you can't do things like use a function to slice a vector on the
 left side of an assignment.  
 
 There's a nice paper on using Verilog macros included here.
+
+-----------------------------------------------------------------
+Tue Mar 10 15:47:34 EDT 2015
+
+A few thoughts:
+--- The idea would be that all macros to parse command structures
+    would go in cmd_defs.vh. This has the appropriate guards to 
+    be included any old place. 
+
+--- A state machine for each module to parse and handle commands
+    can be kept in <module name>_cmds.v. It will have inputs that
+    are cmd, sts, busy; outputs that are ctl, req.   
+
+--- Originally, I had added clock domain crossing resources for
+      all modules. However, it seems that our data rates are
+      low enough that we can probably run all the core logic at
+      1/4 the sampling frequency. 
+
+--- If we do end up having to cross clock domains, this should
+      be done seemlessly in FCR. 
+
+--- There are three types of commands: control, status, and run.
+      Control is shown in the examples for TAP here. 
+      Status is easy, just latch whatever is requested.
+      Run will require some req and busy handshaking. 

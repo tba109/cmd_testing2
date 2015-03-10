@@ -39,14 +39,14 @@ module fcr
    // TAP command/control and status/response 
    wire [31:0] 		       tap_rsp_data;
    wire 		       tap_done;
-   tap_exe TAP_EXE0(
-		    .clk(clk),
-		    .rst_n(rst_n),
-		    .run(fsm == S_EXE),
-		    .cmd(cmd_data),
-		    .rsp(tap_rsp_data),
-		    .ctl(tap_ctl)
-		    );
+   tap_cmds TAP_CMDS0(
+		      .clk(clk),
+		      .rst_n(rst_n),
+		      .run(fsm == S_EXE),
+		      .cmd(cmd_data),
+		      .rsp(tap_rsp_data),
+		      .ctl(tap_ctl)
+		      );
         
    // Combinational outputs
    assign cmd_rdreq = (fsm == S_RD_CMD);

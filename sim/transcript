@@ -1,2 +1,5 @@
-# ** Error: (vish-3296) Unknown option '--help'.
-# Use the -help option for complete vsim usage.
+# ERROR: No extended dataflow license exists
+# vsim cmd_testing2_tb 
+# Loading work.cmd_testing2_tb
+# Loading work.fcr
+# Loading work.tap_cmds
