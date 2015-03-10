@@ -23,21 +23,21 @@ module fcr
 
 `include "cmd_fncs.vh"
       
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   ////////////////////////////////////////////////////////////////////////////////////////
    // finite state machine (fsm) states
-   reg [2:0] 		       fsm;
+   reg [1:0] 		       fsm;
    localparam 
      S_IDLE   = 2'd0, 
      S_RD_CMD = 2'd1, 
-     S_REQ    = 2'd2,
-     S_BUSY   = 2'd3,
-     S_WR_RSP = 2'd4;
+     S_EXE    = 2'd2,
+     S_WR_RSP = 2'd3;
 
-   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   ////////////////////////////////////////////////////////////////////////////////////////
    // Useful assignments
    wire 		       exe_done;
-      
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   assign exe_done = 1'b1;
+   
+   ////////////////////////////////////////////////////////////////////////////////////////
    // TAP command/control and status/response 
    wire [31:0] 		       tap_rsp_data;
    wire 		       tap_done;
@@ -47,14 +47,13 @@ module fcr
 		    .run(fsm == S_EXE),
 		    .cmd(cmd_data),
 		    .rsp(tap_rsp_data),
-		    .ctl(tap_ctl),
-		    .done(tap_done);
-		    )
-     
+		    .ctl(tap_ctl)
+		    );
+        
    // Combinational outputs
    assign cmd_rdreq = (fsm == S_RD_CMD);
    assign rsp_wrreq = (fsm == S_WR_RSP);
-   always @(cmd_target(cmd_data)) // demux the response
+   always @(cmd_target(cmd_data),tap_rsp_data) // demux the response
      case(cmd_target(cmd_data)) 
        C_TARGET_TAP : rsp_data <= tap_rsp_data;
        default      : rsp_data <= 32'd0;
