@@ -2,64 +2,64 @@ m255
 K3
 13
 cModel Technology
-Z0 d/home/tyler/altera/14.1
+Z0 d/home/tyler/pingu/firmware/cmd_testing2/sim
 vcmd_testing2_tb
-Z1 IzfCdTQHmc>BBKEcAG^1Jd3
-Z2 V?R0VL3HJ3DkLS2L_=eJJ]2
-Z3 d/home/tyler/pingu/firmware/cmd_testing2/sim
-Z4 w1426009365
-Z5 8/home/tyler/pingu/firmware/cmd_testing2/sim/cmd_testing2_tb.v
-Z6 F/home/tyler/pingu/firmware/cmd_testing2/sim/cmd_testing2_tb.v
-L0 8
-Z7 OV;L;10.1d;51
-r1
-31
-Z8 !s90 -reportprogress|300|-work|work|+incdir+/home/tyler/pingu/firmware/cmd_testing2|/home/tyler/pingu/firmware/cmd_testing2/sim/cmd_testing2_tb.v|
-Z9 o-work work -O0
-Z10 !s92 -work work +incdir+/home/tyler/pingu/firmware/cmd_testing2 -O0
-Z11 !s100 XnHb5FzXnJNOabLFG^Q<j0
-Z12 !s108 1426009626.975264
-Z13 !s107 /home/tyler/pingu/firmware/cmd_testing2/cmd_defs.vh|/home/tyler/pingu/firmware/cmd_testing2/sim/cmd_testing2_tb.v|
 !i10b 1
-!s85 0
-!s101 -O0
-vfcr
-Z14 II0aYaO6g8Xi0m2k?QfBaX2
-Z15 VcJ1?PzU_h_eNnl0YRLOcE0
-R3
-Z16 w1426009610
-Z17 8/home/tyler/pingu/firmware/cmd_testing2/fcr.v
-Z18 F/home/tyler/pingu/firmware/cmd_testing2/fcr.v
-L0 6
-R7
+Z1 !s100 VZVMZ?SBIQ>nBWeChS0F21
+Z2 IkAO?P9DS`=NRLMT7KE8XX3
+Z3 V?R0VL3HJ3DkLS2L_=eJJ]2
+Z4 d/home/tyler/pingu/firmware/cmd_testing2/sim
+Z5 w1426009365
+Z6 8cmd_testing2_tb.v
+Z7 Fcmd_testing2_tb.v
+L0 8
+Z8 OV;L;10.1d;51
 r1
+!s85 0
 31
-Z19 !s90 -reportprogress|300|-work|work|+incdir+/home/tyler/pingu/firmware/cmd_testing2|/home/tyler/pingu/firmware/cmd_testing2/fcr.v|
+Z9 !s108 1426014859.479702
+Z10 !s107 ../cmd_defs.vh|cmd_testing2_tb.v|../tap_exe.v|../fcr.v|
+Z11 !s90 ../fcr.v|../tap_exe.v|cmd_testing2_tb.v|+incdir+..|
+!s101 -O0
+o-O0
+Z12 !s92 +incdir+.. -O0
+vfcr
+!i10b 1
+Z13 !s100 zY`XO:EzE`FCSUM?0]U440
+Z14 Icn17h98nD:[8jkb=Dg;z^2
+Z15 VcJ1?PzU_h_eNnl0YRLOcE0
+R4
+Z16 w1426009610
+Z17 8../fcr.v
+Z18 F../fcr.v
+L0 6
+R8
+r1
+!s85 0
+31
 R9
 R10
-!i10b 1
-Z20 !s100 m<?oUZ6c3@Cf2;Q14jjoV3
-!s85 0
-Z21 !s108 1426009626.996339
-Z22 !s107 /home/tyler/pingu/firmware/cmd_testing2/cmd_defs.vh|/home/tyler/pingu/firmware/cmd_testing2/fcr.v|
+R11
 !s101 -O0
+o-O0
+R12
 vtap_exe
 !i10b 1
-!s100 T;5gX@=I:IVe91_:?I3oT2
-I8XW[m[zOjn<m5YgIO>I<z0
-Z23 Vl9`^algCY<Qf^W=^TR?ge2
-R3
-w1426009538
-Z24 8/home/tyler/pingu/firmware/cmd_testing2/tap_exe.v
-Z25 F/home/tyler/pingu/firmware/cmd_testing2/tap_exe.v
+Z19 !s100 jXgBfO_X3d0O@`nH7RUP50
+Z20 IzmKMC_NSZ?>BG28Yl`[Hi2
+Z21 Vl9`^algCY<Qf^W=^TR?ge2
+R4
+Z22 w1426009538
+Z23 8../tap_exe.v
+Z24 F../tap_exe.v
 L0 3
-R7
+R8
 r1
 !s85 0
 31
-!s108 1426009627.014677
-!s107 /home/tyler/pingu/firmware/cmd_testing2/cmd_defs.vh|/home/tyler/pingu/firmware/cmd_testing2/tap_exe.v|
-Z26 !s90 -reportprogress|300|-work|work|+incdir+/home/tyler/pingu/firmware/cmd_testing2|/home/tyler/pingu/firmware/cmd_testing2/tap_exe.v|
-!s101 -O0
 R9
 R10
+R11
+!s101 -O0
+o-O0
+R12
