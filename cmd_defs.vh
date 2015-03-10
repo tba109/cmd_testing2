@@ -72,6 +72,5 @@
 `define CTL_TAP_THR(x) x[16:3]
 `define CTL_TAP_TRIG_EN(x) x[0]
 
+`endif //  `ifndef _CMD_DEFS_VH_
 
-
-`endif

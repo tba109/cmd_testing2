@@ -1,0 +1,18 @@
+Tyler Anderson 
+Tue Mar 10 09:47:04 EDT 2015
+cmd_testing2
+
+For testing ideas to simplify and clean up some of the interfaces (e.g., the command
+interface). We're trying to stick with only Verilog 2001. (SystemVerilog and VHDL have
+their own abstract data types to do this a little more cleanly.)
+
+I've settled on using macros to do the job. 
+
+The downside of using macros is that they are in the global namespace, so collisions 
+are possible. 
+
+The solution is to give all macros descriptive and unique names. 
+
+I'd prefer using something like a verilog function and localparam. The problem
+I've run into is that functions an only return values, so you can't do things like
+use a function to slice a vector on the left side of an assignment.  
