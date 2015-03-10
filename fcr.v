@@ -20,9 +20,9 @@ module fcr
    // TAP interface
    output [`N_TAP_CTL_SIZE-1:0] tap_ctl 
    );
-   
-`include "tap_fncs.v"
-   
+
+`include "cmd_fncs.vh"
+      
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    // finite state machine (fsm) states
    reg [2:0] 		       fsm;

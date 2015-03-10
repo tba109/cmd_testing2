@@ -2,10 +2,11 @@
 // An approach at abstracting the cmd interface in verilog.
 //////////////////////////////////////////////////////////////////////////////
 
-`include "cmd_defs.vh"
-
-//////////////////////////////////////////////////////////////////////////////
-// These are for TAP 
+localparam DEF_TRIG_EN =     1'b0;
+localparam DEF_LT      =     1'b0;
+localparam DEF_ET      =     1'b0;
+localparam DEF_GT      =     1'b0;
+localparam DEF_THR     = 14'h1000;
 
 // The TAP "greater than" flag
 function ctl_tap_gt;
@@ -27,10 +28,9 @@ endfunction
 function ctl_tap_lt;
    input [`N_TAP_CTL_SIZE-1:0] ctl;
    begin
-      tap_lt = ctl[2];
+      ctl_tap_lt = ctl[2];
    end
 endfunction
-
 
 // The TAP "trigger threshold"
 function [13:0] ctl_tap_thr;
@@ -48,3 +48,9 @@ function ctl_tap_trig_en;
    end
 endfunction
 
+// The TAP initialization   
+function ctl_tap_init;
+   begin
+      ctl_tap_init = {DEF_TRIG_EN,DEF_THR,DEF_LT,DEF_ET,DEF_GT};
+   end
+endfunction

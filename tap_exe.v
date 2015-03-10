@@ -1,6 +1,3 @@
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Do clock domain crossing in this module if necessary
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 `include "cmd_defs.vh"
 
 module tap_exe
@@ -12,14 +9,13 @@ module tap_exe
    output reg [31:0] 		    rsp, 
    output reg [`N_TAP_CTL_SIZE-1:0] ctl
    );
-   
+
+`include "cmd_fncs.vh"   
 `include "tap_fncs.vh"   
-`include "cmd_fncs.vh"
-         
-   // FSM 
+   
    always @(posedge clk or negedge rst_n)
      if( !rst_n ) ctl <= ctl_tap_init();
-     else if( run && (cmd_target(cmd) == C_TAP) )
+     else if( run && (cmd_target(cmd) == C_TARGET_TAP) )
        case( cmd_instr(cmd) )
 	 C_TAP_SET_GT      : begin ctl_tap_gt(ctl)      <= cmd_data[0];    rsp <=         cmd_data;  end
 	 C_TAP_SET_ET      : begin ctl_tap_et(ctl)      <= cmd_data[0];    rsp <=         cmd_data;  end
