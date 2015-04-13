@@ -15,10 +15,17 @@ module fcr
    output 			cmd_rdreq, // read flag for cmd fifo
    output 			rsp_wrreq, // write flag for cmd fifo
    input 			cmd_waitreq, // wait request for cmd fifo. Note that this goes low when data appears
-   input 			rsp_waitreq, // wait request for rsp fifo. Note that this goes high when data app
+   input 			rsp_waitreq, // wait request for rsp fifo. Note that this goes high when data app 			
    
    // TAP interface
-   output [`N_TAP_CTL_SIZE-1:0] tap_ctl 
+   output [`N_TAP_CTL_SIZE-1:0] tap_ctl,
+   input 			tap_rsp_rdy,
+
+   //PHF interface
+   input 			phf_clear_busy,
+   input 			phf_status,
+   input 			phf_rsp_rdy, 
+   output 			phf_clear_req 			
    );
       
    ////////////////////////////////////////////////////////////////////////////////////////
@@ -33,30 +40,48 @@ module fcr
    ////////////////////////////////////////////////////////////////////////////////////////
    // Useful assignments
    wire 		       exe_done;
-   assign exe_done = 1'b1;
+   //assign exe_done = 1'b1;
    
    ////////////////////////////////////////////////////////////////////////////////////////
    // TAP command/control and status/response 
    wire [31:0] 		       tap_rsp_data;
-   wire 		       tap_done;
    tap_cmds TAP_CMDS0(
 		      .clk(clk),
 		      .rst_n(rst_n),
 		      .run(fsm == S_EXE),
 		      .cmd(cmd_data),
 		      .rsp(tap_rsp_data),
-		      .ctl(tap_ctl)
+		      .ctl(tap_ctl),
+		      .rsp_rdy(tap_rsp_rdy)
 		      );
         
+
+   //PHF
+   wire [31:0] 		       phf_rsp_data;
+   phf_cmds PHF_CMDS0(
+		      .clk(clk),
+		      .rst_n(rst_n),
+		      .run(fsm == S_EXE),
+		      .cmd(cmd_data),
+		      .sts(phf_status),
+		      .busy(phf_clear_busy),
+		      .rsp_rdy(phf_rsp_rdy),
+		      .rsp(phf_rsp_data),
+		      .clear_req(phf_clear_req)
+		      );
+   
    // Combinational outputs
    assign cmd_rdreq = (fsm == S_RD_CMD);
-   assign rsp_wrreq = (fsm == S_WR_RSP);
-   always @(`CMD_TARGET(cmd_data),tap_rsp_data) // DEMUX the response
+   assign exe_done = (phf_rsp_rdy || tap_rsp_rdy);
+   assign rsp_wrreq = ((fsm == S_WR_RSP)); // && phf_rsp_rdy);
+   
+   always @(`CMD_TARGET(cmd_data),tap_rsp_data, phf_rsp_data) // DEMUX the response
      case(`CMD_TARGET(cmd_data)) 
        `C_TARGET_TAP : rsp_data <= tap_rsp_data;
-       default       : rsp_data <= 32'd0;
-     endcase
-   
+       `C_TARGET_PHF : rsp_data <= phf_rsp_data;
+       default       : rsp_data <= 32'd0;  
+     endcase // case (`CMD_TARGET(cmd_data))
+      
    // sequental logic
    always @(posedge clk or negedge rst_n)
      begin
@@ -65,8 +90,8 @@ module fcr
 	  case(fsm)
 	    S_IDLE:         if( !cmd_waitreq )             fsm <= S_RD_CMD;
 	    S_RD_CMD:                                      fsm <= S_EXE;
-	    S_EXE:          if( exe_done && !rsp_waitreq ) fsm <= S_WR_RSP;
-	               else if( exe_done &&  rsp_waitreq ) fsm <= S_IDLE;
+	    S_EXE:          if( exe_done && !rsp_waitreq ) fsm <= S_WR_RSP; //add phf_rsp_rdy here?
+	               else if( exe_done && rsp_waitreq )  fsm <= S_IDLE;
 	    S_WR_RSP:                                      fsm <= S_IDLE;
 	    default:                                       fsm <= S_IDLE;
 	  endcase 
