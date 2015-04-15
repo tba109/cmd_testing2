@@ -1,5 +1,5 @@
-# ERROR: No extended dataflow license exists
-# vsim cmd_testing2_tb 
-# Loading work.cmd_testing2_tb
+# vsim phf_testing_tb 
+# Loading work.phf_testing_tb
 # Loading work.fcr
 # Loading work.tap_cmds
+# Loading work.phf_cmds

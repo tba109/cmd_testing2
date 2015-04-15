@@ -6,7 +6,7 @@ if [ ! -d "work" ]; then
 fi
 
 # Compile
-vlog ../*.v cmd_testing2_tb.v +incdir+..
+vlog ../*.v phf_testing_tb.v +incdir+..
 
 # Run modelsim
-vsim cmd_testing2_tb
+vsim phf_testing_tb
